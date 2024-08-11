@@ -5,21 +5,23 @@
   "main": "App.js",
   "scripts": {
     "test": "jest",
-    "start":"parcel index.html",
-    "build":"parcel build index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Jaydeep Patil",
   "license": "ISC",
   "devDependencies": {
     "parcel": "^2.12.0",
-    "process": "^0.11.10"
+    "postcss": "^8.4.41",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.9"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1"
   },
-  "browserslist":[
+  "browserslist": [
     "last 2  versions"
-    
   ]
 }
