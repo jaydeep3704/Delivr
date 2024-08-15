@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 
 const smoothScroll = (amount, element) => {
   element.scrollTo({
-    left: amount,
+    left: element.scrollLeft+amount,
     behavior: 'smooth' 
   });
 };
@@ -20,14 +20,18 @@ const Slider=(props)=>{
 
   
    const handleScroll=(direction)=>{
-    if(direction=="left")
+    if(scrollItemRef.current)
     {
-      smoothScroll(-props.amount,scrollItemRef.current)
+      if(direction==="left")
+        {
+          smoothScroll(-props.amount,scrollItemRef.current)
+        }
+        else if(direction==="right")
+        {
+          smoothScroll(props.amount,scrollItemRef.current)
+        }
     }
-    else if(direction=="right")
-    {
-      smoothScroll(props.amount,scrollItemRef.current)
-    }
+   
    }
  
   return (
