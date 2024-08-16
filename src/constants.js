@@ -7,7 +7,7 @@ export const SWIGGY_API= (lat,lon)=>{
 export const CLOUDINARY_WOYM_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360"
 export const CLOUDINARY_RESTAURANT_FOOD_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit"
 
-export const mockData={"restaurants": [
+export const mockData= [
                   {
                     "info": {
                       "id": "797429",
@@ -584,7 +584,7 @@ export const mockData={"restaurants": [
                     "widgetId": "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo"
                   },
                   
-                ]}
+                ]
 
 export const whatsonyourmind=[
 {
