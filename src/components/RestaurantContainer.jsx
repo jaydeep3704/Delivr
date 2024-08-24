@@ -4,6 +4,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { MdFilterListAlt } from "react-icons/md";
 import { SWIGGY_API } from "../constants";
 import ShimmerRestaurantContainer from "./ShimmerRestaurantContainer";
+import TopRestaurantChains from "./TopRestaurantChains";
 
 const RestaurantContainer = () => {
   const [listofRestaurants, setListOfRestaurants] = useState([]);
@@ -11,7 +12,7 @@ const RestaurantContainer = () => {
   const [heading, setHeading] = useState("Top Restaurants Near Me");
   const [selectedOption, setSelectedOption] = useState('');
   const [showSortBy, setShowSortBy] = useState(false);
-  
+  const[restaurantChainTitle,setRestaurantChainTitle]=useState("")
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -28,8 +29,11 @@ const RestaurantContainer = () => {
       const json = await response.json();
       const card = await json?.data?.cards[1]?.card?.card;
       const food_delivery_res = await json?.data?.cards[2]?.card?.card.title;
+      const restaurant_chains = await json?.data?.cards[1]?.card?.card.header.title || "Top Restaurant Chains Near You";
+
         console.log(json.data)
       const restaurants = card.gridElements?.infoWithStyle?.restaurants || [];
+      setRestaurantChainTitle(restaurant_chains)
       setListOfRestaurants(restaurants);
       setDefaultList(restaurants);
       setHeading(food_delivery_res);
@@ -102,23 +106,26 @@ const RestaurantContainer = () => {
   return listofRestaurants.length === 0 ? (
     <ShimmerRestaurantContainer />
   ) : (
-    <div className="px-40 mx-auto my-10">
-      <h1 className="text-3xl font-semibold capitalize">{heading}</h1>
+    <div className="px-5 mx-auto my-10 lg:px-60 sm:px-20">
+      <TopRestaurantChains restaurantData={defaultList} title={restaurantChainTitle} />
 
-      <div className="flex gap-5 mt-5 text-gray-600">
-        <button className="flex items-center gap-2 px-5 py-2 border-none shadow-md outline-none rounded-3xl">
+
+      <h1 className="text-lg md:text-2xl font-semibold capitalize  border-t-[1px] border-gray-300 pt-5">{heading}</h1>
+
+      <div className="flex flex-wrap gap-5 mt-5 text-gray-600">
+        <button className="flex items-center gap-2 px-5 py-2 text-sm border-none shadow-md outline-none rounded-3xl md:text-md">
           Filter
           <MdFilterListAlt className="text-lg" />
         </button>
         <button
-          className="flex items-center gap-2 px-5 py-2 border-none shadow-md outline-none rounded-3xl"
+          className="flex items-center gap-2 px-5 py-2 text-sm border-none shadow-md outline-none rounded-3xl md:text-md"
           onClick={() => setShowSortBy((prev) => !prev)}
         >
           Sort By <IoIosArrowDown />
         </button>
         
         {showSortBy && (
-          <div className="absolute flex flex-col p-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-md left-60 z-20">
+          <div className="absolute z-20 flex flex-col p-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-md left-60 ">
             <label className="flex items-center">
               <input
                 type="radio"
@@ -127,7 +134,7 @@ const RestaurantContainer = () => {
                 onChange={handleChange}
                 className="text-blue-500 form-radio"
               />
-              <span className="ml-2">Relevance (Default)</span>
+              <span className="ml-2 text-sm md:text-md">Relevance (Default)</span>
             </label>
             <label className="flex items-center">
               <input
@@ -137,7 +144,7 @@ const RestaurantContainer = () => {
                 onChange={handleChange}
                 className="text-blue-500 form-radio"
               />
-              <span className="ml-2">Delivery Time</span>
+              <span className="ml-2 text-sm md:text-md">Delivery Time</span>
             </label>
             <label className="flex items-center">
               <input
@@ -147,7 +154,7 @@ const RestaurantContainer = () => {
                 onChange={handleChange}
                 className="text-blue-500 form-radio"
               />
-              <span className="ml-2">Rating</span>
+              <span className="ml-2 text-sm md:text-md">Rating</span>
             </label>
             <label className="flex items-center">
               <input
@@ -157,7 +164,7 @@ const RestaurantContainer = () => {
                 onChange={handleChange}
                 className="text-blue-500 form-radio"
               />
-              <span className="ml-2">Cost High to Low</span>
+              <span className="ml-2 text-sm md:text-md">Cost High to Low</span>
             </label>
             <label className="flex items-center">
               <input
@@ -167,10 +174,10 @@ const RestaurantContainer = () => {
                 onChange={handleChange}
                 className="text-blue-500 form-radio"
               />
-              <span className="ml-2">Cost Low to High</span>
+              <span className="ml-2 text-sm md:text-md">Cost Low to High</span>
             </label>
             <button
-              className="pt-2 font-semibold text-orange-600 capitalize border-t border-gray-200"
+              className="pt-2 text-sm font-semibold text-orange-600 capitalize border-t border-gray-200 md:text-md"
               onClick={handleSort}
             >
               Apply
@@ -179,13 +186,13 @@ const RestaurantContainer = () => {
         )}
 
         <button
-          className="flex items-center gap-2 px-5 py-2 border-none shadow-md outline-none rounded-3xl"
+          className="flex items-center gap-2 px-5 py-2 text-sm border-none shadow-md outline-none rounded-3xl md:text-md"
           onClick={handleFastDelivery}
         >
           Fast Delivery
         </button>
         <button
-          className="flex items-center gap-2 px-5 py-2 border-none shadow-md outline-none rounded-3xl"
+          className="flex items-center gap-2 px-5 py-2 text-sm border-none shadow-md outline-none rounded-3xl md:text-md"
           onClick={handleRatingFilter}
         >
           Rating 4+
@@ -193,7 +200,7 @@ const RestaurantContainer = () => {
       </div>
 
       {/* Restaurant card container */}
-      <div className="flex flex-wrap gap-12 mt-5">
+      <div className={`flex flex-wrap  flex-row  mt-5 lg:gap-10 gap-0 ${listofRestaurants.length%2==0 && 'sm:justify-between' } `}>
         {listofRestaurants.map((restaurant) => {
           const restInfo = restaurant.info;
           return (

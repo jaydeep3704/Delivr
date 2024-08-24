@@ -4,9 +4,9 @@ import { whatsonyourmind } from "../constants";
 import { CLOUDINARY_WOYM_URL } from "../constants";
 const WOYM = () => {
   return (
-    <div className="px-40 mt-10">
-      <div className="flex justify-between mb-5">
-        <h2 className="text-3xl font-semibold capitalize">
+    <div className="px-5 mt-10 lg:px-60 sm:px-20 xs">
+      <div className="flex flex-col justify-between mb-2 md:mb-5 md:flex-row">
+        <h2 className="mb-2 text-xl font-semibold capitalize md:text-2xl">
           What's on your mind ?
         </h2>
         <Slider amount={350} className="woym" />
@@ -16,11 +16,11 @@ const WOYM = () => {
        
        {
         whatsonyourmind.map((element)=>{
-          return <div className="h-[150px] w-[120px]   flex-shrink-0 flex items-center flex-col" key={element.id}>
+          return <div className="md:h-[150px] md:w-[120px] h-[95px] w-[95px]  flex-shrink-0 flex items-center flex-col" key={element.id}>
           <img
             src={`${CLOUDINARY_WOYM_URL}/${element.imageId}`}
             alt=""
-            className="object-cover  h-[140px] w-[140px]"
+            className="object-cover  md:h-[140px] md:w-[140px] h-[95px] w-[95px]"
           />
         </div>
         })

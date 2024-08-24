@@ -22,6 +22,7 @@ const Slider=(props)=>{
    const handleScroll=(direction)=>{
     if(scrollItemRef.current)
     {
+      
       if(direction==="left")
         {
           smoothScroll(-props.amount,scrollItemRef.current)
@@ -36,10 +37,10 @@ const Slider=(props)=>{
  
   return (
     
-    <div className='flex items-center right-4'>
-      <div onClick={() => handleScroll('left')} className='flex items-center bg-[#e2e2e7] mr-3 rounded-full p-2 cursor-pointer'><FaArrowLeft className='text-[#02060ceb] text-base'/></div>
+    <div className='flex items-center right-4 '>
+      <div onClick={() => handleScroll('left')} className='flex items-center bg-[#e2e2e7] mr-3 rounded-full p-2 cursor-pointer'><FaArrowLeft className='text-[#02060ceb] md:text-base text-sm'/></div>
         
-      <div onClick={() => handleScroll('right')} className='flex items-center bg-[#e2e2e7] rounded-full p-2 cursor-pointer'><FaArrowRight className='text-[#02060ceb] text-base'/></div>
+      <div onClick={() => handleScroll('right')} className='flex items-center bg-[#e2e2e7] rounded-full p-2 cursor-pointer'><FaArrowRight className='text-[#02060ceb] md:text-base text-sm'/></div>
     </div>
 
    
