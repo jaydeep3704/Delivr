@@ -1,8 +1,13 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import Slider from "./components/Slider";
-import Home from "./pages/Home";
 
+import Home from "./pages/Home";
+import Search from "./pages/Search";
+
+import Navbar from "./components/Navbar";
+import { createBrowserRouter ,Outlet,RouterProvider} from 'react-router-dom';
+import PageNotFound from "./components/PageNotFound";
+import RestaurantMenu from "./pages/RestaurantMenu";
 /*
 --- App Structure ---
 *Header
@@ -17,24 +22,49 @@ import Home from "./pages/Home";
 *Footer
   -Copyright
   -Links
-
 */
 
-const App=()=>{
-
-
- 
-  
-    return (
-        <div className="">
-            <Navbar/>
-            <Home/>
-           
-        </div>
-    )
+const AppLayout=()=>{
+  return(
+    <div>
+      <Navbar/>
+      <Outlet/>
+    </div>
+  )
 }
 
+const router=createBrowserRouter([
+  {
+    path:'/',
+    element:<AppLayout/>,
+    errorElement:<PageNotFound/>,
+    children:[
+      {
+        path:'/',
+        element:<Home/>
+      },
+      {
+        path:'/search',
+        element:<Search/>
+      },
+      {
+        path:'/restaurants/:resId',
+        element:<RestaurantMenu/>
+      }
+    ]
+  }
+])
+
+
+
+
+const App = () => {
+  return (
+    <div>
+     
+      <RouterProvider router={router}/>
+    </div>
+  );
+};
+
 export default App;
-
-
-

@@ -28,8 +28,8 @@ const RestaurantContainer = () => {
       }
       const json = await response.json();
       const card = await json?.data?.cards[1]?.card?.card;
-      const food_delivery_res = await json?.data?.cards[2]?.card?.card.title;
-      const restaurant_chains = await json?.data?.cards[1]?.card?.card.header.title || "Top Restaurant Chains Near You";
+      const food_delivery_res = await json?.data?.cards[2]?.card?.card?.title;
+      const restaurant_chains = await json?.data?.cards[1]?.card?.card?.header?.title || "Top Restaurant Chains Near You";
 
         console.log(json.data)
       const restaurants = card.gridElements?.infoWithStyle?.restaurants || [];
@@ -203,18 +203,20 @@ const RestaurantContainer = () => {
       <div className={`flex flex-wrap  flex-row  mt-5 lg:gap-10 gap-0 ${listofRestaurants.length%2==0 && 'sm:justify-between' } `}>
         {listofRestaurants.map((restaurant) => {
           const restInfo = restaurant.info;
+          const{id,name,cloudinaryImageId,cuisines,sla,costForTwo,areaName,aggregatedDiscountInfoV3,avgRating}=restInfo
           return (
             <RestaurantCard
-              key={restInfo.id}
-              restName={restInfo.name}
-              imageId={restInfo.cloudinaryImageId}
-              cuisines={restInfo.cuisines}
-              rating={restInfo.avgRating}
-              deliveryTime={restInfo.sla.deliveryTime}
-              costForTwo={restInfo.costForTwo}
-              locality={restInfo.areaName}
-              discountHeading={restInfo.aggregatedDiscountInfoV3?.header}
-              discountSubHeading={restInfo.aggregatedDiscountInfoV3?.subHeader}
+              key={id}
+              id={id}
+              restName={name}
+              imageId={cloudinaryImageId}
+              cuisines={cuisines}
+              rating={avgRating}
+              deliveryTime={sla.deliveryTime}
+              costForTwo={costForTwo}
+              locality={areaName}
+              discountHeading={aggregatedDiscountInfoV3?.header}
+              discountSubHeading={aggregatedDiscountInfoV3?.subHeader}
             />
           );
         })}
