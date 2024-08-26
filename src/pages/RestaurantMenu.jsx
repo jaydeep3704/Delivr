@@ -3,16 +3,20 @@ import { RESTAURANT_MENU } from "../constants";
 
 import { MdOutlineDeliveryDining, MdStars } from "react-icons/md";
 import FoodItemAccordion from "../components/FoodItemAccordion";
+import { useParams } from "react-router-dom";
+import RestaurantMenuShimmer from "../components/RestaurantMenuShimmer";
 const RestaurantMenu = () => {
   const [restaurantInfo, setRestaurantInfo] = useState([]);
   const [accordionInfo,setAccordionInfo]=useState([])
+  const params=useParams()
+  
   const fetchRestaurantInfo = async () => {
     
     const lat = 18.516726
     const long = 73.856255
     
   
-    const data = await fetch(RESTAURANT_MENU(lat,long));
+    const data = await fetch(RESTAURANT_MENU(lat,long,params.resId));
     const json = await data.json();
     setRestaurantInfo(json?.data?.cards[2]?.card?.card?.info);
     const menuCategory=json?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR
@@ -22,25 +26,26 @@ const RestaurantMenu = () => {
     
     setAccordionInfo(menuList)
   };
-console.log(accordionInfo)
+
 
   useEffect(() => {
     fetchRestaurantInfo();
   }, []);
   const {name,totalRatingsString,costForTwoMessage,city,feeDetails,cuisines}=restaurantInfo
  
-  console.log(accordionInfo)
-  return (
+  
+
+  return restaurantInfo.length===0 ?<RestaurantMenuShimmer/> :(
     <div className="flex justify-center w-full px-3 py-10">
       <div className="w-full lg:w-1/2">
         <div className="p-5 rounded-3xl bg-gradient-to-b from-white to-gray-200">
           <h1 className="text-3xl font-bold text-slate-900">
             {name}
           </h1>
-          <div className="flex flex-col gap-3 p-5 mt-5 bg-white border border-gray-200 rounded-2xl">
-            <p className="flex items-center gap-5 text-lg font-semibold">
+          <div className="flex flex-col gap-2 p-5 mt-5 bg-white border border-gray-200 rounded-2xl">
+            <p className="flex items-center gap-2 text-lg font-semibold">
               <MdStars className="text-2xl text-green-700" />
-              <span>-- ({totalRatingsString})</span>
+              <span>({totalRatingsString})</span>
               <span>{costForTwoMessage}</span>
             </p>
             <span className="font-bold text-orange-600 capitalize text-md">

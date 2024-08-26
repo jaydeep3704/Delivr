@@ -7,7 +7,7 @@ export const SWIGGY_API= (lat,lon)=>{
 
 export const CLOUDINARY_WOYM_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360"
 export const CLOUDINARY_RESTAURANT_FOOD_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit"
-export const RESTAURANT_MENU=(lat,lon)=>{return `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.7357931&lng=73.0946926&restaurantId=5107&submitAction=ENTER`}
+export const RESTAURANT_MENU=(lat,lon,resId)=>{return `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.7357931&lng=73.0946926&restaurantId=${resId}&submitAction=ENTER`}
 
 
 export const whatsonyourmind=[

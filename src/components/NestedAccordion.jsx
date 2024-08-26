@@ -1,43 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronUp, FaStar } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { CLOUDINARY_RESTAURANT_FOOD_URL } from "../constants.js";
 import nonveg from "../assets/nonveg.png";
 import veg from "../assets/veg.png";
-import NestedAccordion from './NestedAccordion.jsx'
 
-const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
-  const [isActive, setIsActive] = useState(false);
-
-  const [itemCards, setItemCards] = useState(
-    menuData?.itemCards || []
-  );
-  const[categories,setCategories]=useState(menuData?.categories)
-  console.log(categories)
-
+const NestedAccordion = ({ nestedCategoryData }) => {
   
-  // Function to toggle the state
-  const toggleActive = () => setIsActive((prev) => !prev);
+  const [isActive,setIsActive ] = useState(false);
+  const[itemCards,setItemCards]=useState(nestedCategoryData.itemCards)
 
+ const toggleActive=()=>{
+  setIsActive(prev=>!prev)
+ }
+  const {title}=nestedCategoryData
+
+  console.log(nestedCategoryData)
   return (
-    <div>
-      <div className="flex justify-between py-5 text-2xl font-bold border-b border-gray-400">
-        {menuCategoryTitle}
-        {isActive ? (
-          <FaChevronDown onClick={toggleActive} />
-        ) : (
-          <FaChevronUp onClick={toggleActive} />
-        )}
-      </div>
-
-      { 
-       categories ? isActive && 
-       categories.map((category,index)=>{
-          return <NestedAccordion nestedCategoryData={category} key={index}/>
-       })
-       
-       :<AnimatePresence>
+    <div className="w-full">
+     
+        
+        <div >
+            <div className="flex justify-between py-5 pr-16 text-xl font-semibold border-b border-gray-400">
+              {title}
+              {isActive ? (
+                <FaChevronDown onClick={toggleActive} />
+              ) : (
+                <FaChevronUp onClick={toggleActive} />
+              )}
+            </div>
+        </div>
+        <AnimatePresence>
         {isActive && 
         (
           <motion.div
@@ -50,7 +44,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
               let menuCardInfo = card.card.info;
 
               const { id, imageId, name, price, ratings } = menuCardInfo;
-              const vegClassifier  = menuCardInfo.itemAttribute?.vegClassifier;
+              const { vegClassifier } = menuCardInfo.itemAttribute;
 
               const renderIcon = () => {
                 switch (vegClassifier) {
@@ -66,7 +60,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
               };
               return  (
                 <div
-                  className="flex justify-between py-10 border-b border-gray-300"
+                  className="flex justify-between py-10 pr-10 border-b border-gray-300"
                   key={id}
                 >
                   <div className="text-lg font-semibold">
@@ -106,9 +100,11 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
             })}
           </motion.div>
         )}
-      </AnimatePresence>}
+      </AnimatePresence>
+       
+            
     </div>
   );
 };
 
-export default FoodItemAccordion;
+export default NestedAccordion;
