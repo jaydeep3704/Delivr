@@ -14,7 +14,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
     menuData?.itemCards || []
   );
   const[categories,setCategories]=useState(menuData?.categories)
-  console.log(categories)
+  
 
   
   // Function to toggle the state
