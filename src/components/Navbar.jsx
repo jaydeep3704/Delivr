@@ -15,7 +15,7 @@ const Navbar = () => {
   }
   const listClass="flex gap-3 items-center cursor-pointer"
   return (
-    <>    <div className='box-border sticky top-0 left-0 right-0 z-30 flex items-center justify-between px-10 py-5 shadow-md md:flex-row bg-slate-900 lg:px-60 h-[80px]'>
+    <>    <div className='box-border sticky top-0 left-0 right-0 z-30 flex items-center justify-between px-10 py-5 shadow-md md:flex-row bg-slate-900 lg:px-40 h-[80px]'>
         <img src={Logo} alt="" className='md:h-[40px] h-[30px]' onClick={()=>navigate('/')}/>
         <ul className='hidden gap-10 text-sm text-white md:flex md:text-lg '>
             <Link to={'/search'} className={listClass} ><FaSearch className='text-md'/>Search</Link>

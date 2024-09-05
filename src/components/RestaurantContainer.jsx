@@ -1,47 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdFilterListAlt } from "react-icons/md";
-import { SWIGGY_API } from "../constants";
 import ShimmerRestaurantContainer from "./ShimmerRestaurantContainer";
 import TopRestaurantChains from "./TopRestaurantChains";
-
+import { useRestaurantData } from "../hooks/useRestaurantData.js";
+import { useOnlineStatus } from "../hooks/useOnlineStatus.js";
+import Offline from "../assets/offline.jpg"
 const RestaurantContainer = () => {
-  const [listofRestaurants, setListOfRestaurants] = useState([]);
-  const [defaultList, setDefaultList] = useState([]);
-  const [heading, setHeading] = useState("Top Restaurants Near Me");
+
   const [selectedOption, setSelectedOption] = useState('');
   const [showSortBy, setShowSortBy] = useState(false);
-  const[restaurantChainTitle,setRestaurantChainTitle]=useState("")
+  const {listofRestaurants,defaultList,heading,restaurantChainTitle}=useRestaurantData()
+
+const onlineStatus=useOnlineStatus()
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  const fetchData = async () => {
-    const lat = 18.516726
-    const long = 73.856255
 
-    try {
-      const response = await fetch(SWIGGY_API(lat, long));
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const json = await response.json();
-      const card = await json?.data?.cards[1]?.card?.card;
-      const food_delivery_res = await json?.data?.cards[2]?.card?.card?.title;
-      const restaurant_chains = await json?.data?.cards[1]?.card?.card?.header?.title || "Top Restaurant Chains Near You";
-
-        console.log(json.data)
-      const restaurants = card.gridElements?.infoWithStyle?.restaurants || [];
-      setRestaurantChainTitle(restaurant_chains)
-      setListOfRestaurants(restaurants);
-      setDefaultList(restaurants);
-      setHeading(food_delivery_res);
-     
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
   const handleSort = (e) => {
     e.preventDefault();
@@ -99,14 +76,28 @@ const RestaurantContainer = () => {
     setListOfRestaurants(filteredRestaurants);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  console.log(listofRestaurants)
 
-  return listofRestaurants.length === 0 ? (
+
+  if(!onlineStatus){
+    return(
+      <div className="flex justify-center w-full mt-10 ">
+        <div className="w-full p-10 mx-5 text-center shadow-lg rounded-xl md:w-1/4 sm:1/2 text-wrap">
+           <h3 className="text-2xl font-bold">You are Offline</h3>
+           <div className="text-xl text-gray-600">We are Unable To Reach Delivr . Please Check Your Network Settings and Try Again</div>
+           <div>
+              <img src={Offline} alt="" />
+           </div>
+        </div>
+      </div>
+    )
+  }
+ 
+
+  return listofRestaurants.length===0 ? (
     <ShimmerRestaurantContainer />
   ) : (
-    <div className="px-5 mx-auto my-10 lg:px-60 sm:px-20">
+    <div className="px-5 mx-auto my-10 sm:px-20 lg:px-48 ">
       <TopRestaurantChains restaurantData={defaultList} title={restaurantChainTitle} />
 
 
@@ -200,7 +191,7 @@ const RestaurantContainer = () => {
       </div>
 
       {/* Restaurant card container */}
-      <div className={`flex flex-wrap  flex-row  mt-5 lg:gap-10 gap-0 ${listofRestaurants.length%2==0 && 'sm:justify-between' } `}>
+      <div className={`flex flex-wrap  flex-row  mt-5 justify-between `}>
         {listofRestaurants.map((restaurant) => {
           const restInfo = restaurant.info;
           const{id,name,cloudinaryImageId,cuisines,sla,costForTwo,areaName,aggregatedDiscountInfoV3,avgRating}=restInfo

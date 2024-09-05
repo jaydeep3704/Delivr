@@ -6,9 +6,9 @@ const RestaurantCard = ({restName,imageId,cuisines,rating,deliveryTime,costForTw
     const navigate=useNavigate()
    const text=cuisines.join(",")
   return (
-    <div className='w-[250px] h-[250px] md:w-[325px] md:h-[325px] rounded-3xl p-3 hover:shadow-md cursor-pointer  ' onClick={()=>navigate(`/restaurants/${id}`)}>
-       <div className='w-full md:h-[200px] h-[150px] mb-2 relative overflow-hidden'>
-          <img src={`${CLOUDINARY_RESTAURANT_URL}/${imageId}`} alt="" className='object-cover w-full rounded-2xl md:h-[200px] h-[150px]'/>
+    <div className='w-full  h-[400px]      sm:w-[250px] sm:h-[250px]      md:w-[325px] md:h-[325px] rounded-3xl p-3 hover:shadow-md cursor-pointer  ' onClick={()=>navigate(`/restaurants/${id}`)}>
+       <div className='w-full md:h-[200px] sm:h-[150px] h-[250px] mb-2 relative overflow-hidden'>
+          <img src={`${CLOUDINARY_RESTAURANT_URL}/${imageId}`} alt="" className='object-cover w-full rounded-2xl md:h-[200px] sm:h-[150px] h-[250px]'/>
           <div className='absolute bottom-0 flex w-full p-2 text-lg font-extrabold text-white uppercase md:text-2xl rounded-b-2xl font-roboto '  style={{ background: 'linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent)' }}>{discountHeading ? discountHeading :""} {discountSubHeading?discountSubHeading:""}</div>
        </div>
        <div >

@@ -1,38 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { RESTAURANT_MENU } from "../constants";
-
+import React from "react";
 import { MdOutlineDeliveryDining, MdStars } from "react-icons/md";
 import FoodItemAccordion from "../components/FoodItemAccordion";
 import { useParams } from "react-router-dom";
 import RestaurantMenuShimmer from "../components/RestaurantMenuShimmer";
+import {useRestaurantMenu} from "../hooks/useRestaurantMenu.js"
 const RestaurantMenu = () => {
-  const [restaurantInfo, setRestaurantInfo] = useState([]);
-  const [accordionInfo,setAccordionInfo]=useState([])
-  const params=useParams()
-  
-  const fetchRestaurantInfo = async () => {
-    
-    const lat = 18.516726
-    const long = 73.856255
-    
-  
-    const data = await fetch(RESTAURANT_MENU(lat,long,params.resId));
-    const json = await data.json();
-    setRestaurantInfo(json?.data?.cards[2]?.card?.card?.info);
-    const menuCategory=json?.data?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR
-    
-    let menuList=Object.entries(menuCategory)
-    menuList=menuList[0][1].slice(1)
-    
-    setAccordionInfo(menuList)
-  };
 
-
-  useEffect(() => {
-    fetchRestaurantInfo();
-  }, []);
+  const {resId}=useParams()
+  const {restaurantInfo,accordionInfo}=useRestaurantMenu(resId)
   const {name,totalRatingsString,costForTwoMessage,city,feeDetails,cuisines}=restaurantInfo
  
+  console.log(restaurantInfo)
+
   
 
   return restaurantInfo.length===0 ?<RestaurantMenuShimmer/> :(

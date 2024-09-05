@@ -54,7 +54,7 @@ const Search = () => {
 
   return (
     <>
-      <div className='flex flex-col items-center w-full'>
+      <div className='flex flex-col items-center w-full px-10'>
         <div className='flex items-center w-full px-5 mx-3 my-10 border border-gray-400 lg:w-1/2'>
           <input
             type="text"

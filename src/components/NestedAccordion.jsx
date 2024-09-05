@@ -16,7 +16,7 @@ const NestedAccordion = ({ nestedCategoryData }) => {
  }
   const {title}=nestedCategoryData
 
-  console.log(nestedCategoryData)
+  
   return (
     <div className="w-full">
      
@@ -43,17 +43,17 @@ const NestedAccordion = ({ nestedCategoryData }) => {
             {itemCards.map((card) => {
               let menuCardInfo = card.card.info;
 
-              const { id, imageId, name, price, ratings } = menuCardInfo;
+              const { id, imageId, name, price, ratings ,description,defaultPrice,totalPrice} = menuCardInfo;
               const { vegClassifier } = menuCardInfo.itemAttribute;
 
               const renderIcon = () => {
                 switch (vegClassifier) {
                   case "VEG":
-                    return <img src={veg} className="w-5 h-5" />;
+                    return <img src={veg} className="w-4 h-4" />;
                   case "NONVEG":
-                    return <img src={nonveg} className="w-5 h-5" />;
+                    return <img src={nonveg} className="w-4 h-4" />;
                   case "EGG":
-                    return <img src={nonveg} className="w-5 h-5" />;
+                    return <img src={nonveg} className="w-4 h-4" />;
                   default:
                     return ""; // Optionally return a default icon or null
                 }
@@ -68,7 +68,7 @@ const NestedAccordion = ({ nestedCategoryData }) => {
                       {renderIcon()}
                       {name}
                     </p>
-                    {price && <p>₹ {price / 100}</p>}
+                    <p>₹ {price / 100 || totalPrice/100 || defaultPrice/100}</p>
                     {ratings.aggregatedRating.rating && (
                       <p className="flex items-center gap-2 text-sm text-green-700">
                         <FaStar className="text-sm text-green-700" />
@@ -78,8 +78,9 @@ const NestedAccordion = ({ nestedCategoryData }) => {
                         </span>{" "}
                       </p>
                     )}
+                    <div className="mt-2 text-base text-gray-400 font-poppins ">{description}</div>
                   </div>
-                  <div className="relative w-40 h-40 rounded-2xl">
+                  <div className="relative flex-shrink-0 w-40 h-40 rounded-2xl">
                     {imageId && (
                       <img
                         src={`${CLOUDINARY_RESTAURANT_FOOD_URL}/${imageId}`}

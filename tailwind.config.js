@@ -5,7 +5,7 @@ module.exports = {
   ],
   theme: {
       screens: {
-        'sm': '480px',   // Custom small breakpoint
+        'sm': '481px',   // Custom small breakpoint
         'md': '768px',
         'lg': '1024px',
         

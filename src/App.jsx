@@ -1,4 +1,4 @@
-import React from "react";
+import React,{lazy,Suspense} from "react";
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
@@ -7,7 +7,7 @@ import Search from "./pages/Search";
 import Navbar from "./components/Navbar";
 import { createBrowserRouter ,Outlet,RouterProvider} from 'react-router-dom';
 import PageNotFound from "./components/PageNotFound";
-import RestaurantMenu from "./pages/RestaurantMenu";
+import RestaurantMenuShimmer from "./components/RestaurantMenuShimmer";
 /*
 --- App Structure ---
 *Header
@@ -23,6 +23,9 @@ import RestaurantMenu from "./pages/RestaurantMenu";
   -Copyright
   -Links
 */
+
+const RestaurantMenu=lazy(()=>import("./pages/RestaurantMenu"))
+
 
 const AppLayout=()=>{
   return(
@@ -49,7 +52,7 @@ const router=createBrowserRouter([
       },
       {
         path:'/restaurants/:resId',
-        element:<RestaurantMenu/>
+        element:<Suspense fallback={<RestaurantMenuShimmer/>}><RestaurantMenu/></Suspense>
       }
     ]
   }

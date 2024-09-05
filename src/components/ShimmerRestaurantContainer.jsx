@@ -3,10 +3,10 @@ import ShimmerCard from './ShimmerCard'
 
 const ShimmerRestaurantContainer = () => {
   return (
-    <div className="w-full px-10 mx-auto my-10 sm:px-20 md:px-60">
+    <div className="w-full px-5 mx-auto my-10 md:px-48 sm:px-20">
       
      
-       <div className="flex flex-col flex-wrap items-center justify-between gap-5 mt-5 md:flex-row sm:flex-row"> 
+       <div className="flex flex-wrap items-center justify-between mt-5 "> 
             <ShimmerCard/>
             <ShimmerCard/>
             <ShimmerCard/>
