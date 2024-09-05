@@ -18,16 +18,16 @@ const NestedAccordion = ({ nestedCategoryData }) => {
 
   
   return (
-    <div className="w-full">
+    <div className="w-full border-b border-gray-300 last:border-none">
      
         
-        <div >
-            <div className="flex justify-between py-5 pr-16 text-xl font-semibold border-b border-gray-400">
+        <div  >
+            <div className="flex justify-between py-4 pr-16 text-lg font-semibold cursor-pointer" onClick={toggleActive}>
               {title}
               {isActive ? (
-                <FaChevronDown onClick={toggleActive} />
+                <FaChevronDown  />
               ) : (
-                <FaChevronUp onClick={toggleActive} />
+                <FaChevronUp  />
               )}
             </div>
         </div>
@@ -60,15 +60,15 @@ const NestedAccordion = ({ nestedCategoryData }) => {
               };
               return  (
                 <div
-                  className="flex justify-between py-10 pr-10 border-b border-gray-300"
+                  className="flex justify-between py-10 pr-10 border-b border-gray-300 last:border-none"
                   key={id}
                 >
                   <div className="text-lg font-semibold">
-                    <p className="flex items-center gap-3">
+                    <p className="items-center gap-3 text-md">
                       {renderIcon()}
                       {name}
                     </p>
-                    <p>₹ {price / 100 || totalPrice/100 || defaultPrice/100}</p>
+                    <p className="text-[15px]">₹ {price / 100 || totalPrice/100 || defaultPrice/100}</p>
                     {ratings.aggregatedRating.rating && (
                       <p className="flex items-center gap-2 text-sm text-green-700">
                         <FaStar className="text-sm text-green-700" />
@@ -78,7 +78,7 @@ const NestedAccordion = ({ nestedCategoryData }) => {
                         </span>{" "}
                       </p>
                     )}
-                    <div className="mt-2 text-base text-gray-400 font-poppins ">{description}</div>
+                    <div className="mt-2 text-base font-light text-gray-400 font-poppins ">{description}</div>
                   </div>
                   <div className="relative flex-shrink-0 w-40 h-40 rounded-2xl">
                     {imageId && (

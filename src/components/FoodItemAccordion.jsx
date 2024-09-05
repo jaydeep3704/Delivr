@@ -19,15 +19,15 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
   
   // Function to toggle the state
   const toggleActive = () => setIsActive((prev) => !prev);
-
+  const itemCardsLength=itemCards.length
   return (
     <div>
-      <div className="flex justify-between py-5 text-2xl font-bold border-b border-gray-400">
-        {menuCategoryTitle}
+      <div className="flex justify-between py-5 text-xl font-bold cursor-pointer" onClick={toggleActive}>
+        {`${menuCategoryTitle}  ${itemCardsLength>0 ? `(${itemCardsLength})`: ''}  `} 
         {isActive ? (
-          <FaChevronDown onClick={toggleActive} />
+          <FaChevronDown  />
         ) : (
-          <FaChevronUp onClick={toggleActive} />
+          <FaChevronUp  />
         )}
       </div>
 
@@ -67,10 +67,10 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
               return  (
                 <div
                   className="flex justify-between gap-5 py-10 border-b border-gray-300"
-                  key={id}
+                  key={name}
                 >
                   <div className="text-lg font-semibold">
-                    <p className="flex items-center gap-3">
+                    <p className="items-center gap-3 ">
                       {renderIcon()}
                       {name}
                     </p>
@@ -84,7 +84,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
                         </span>{" "}
                       </p>
                     )} 
-                    <div className="mt-2 text-base text-gray-400 font-poppins">{description}</div>
+                    <div className="mt-2 font-light text-gray-400 text-[16px] font-poppins">{description}</div>
                   </div>
                   <div className="relative flex-shrink-0 w-40 h-40 rounded-2xl">
                     {imageId && (
@@ -102,6 +102,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
                       Add
                     </button>
                   </div>
+              
                 </div>
               );
             })}

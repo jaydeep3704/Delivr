@@ -56,7 +56,12 @@ const RestaurantMenu = () => {
             {
               accordionInfo.map((menuCat,index)=>{
                 let menuInfo=menuCat.card.card
-                 return menuInfo.title  && <FoodItemAccordion menuCategoryTitle={menuInfo?.title || ""} menuData={menuInfo } key={index}/>
+                 return menuInfo.title  && 
+                 <div className="w-full" key={index}>
+                  <div className="w-full h-4 bg-gray-200"></div>
+                  <FoodItemAccordion menuCategoryTitle={menuInfo?.title || ""} menuData={menuInfo } />
+                 </div>
+                 
               })
             }
         </div>
