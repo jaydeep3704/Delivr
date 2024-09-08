@@ -1,13 +1,14 @@
 import React,{lazy,Suspense} from "react";
 import Navbar from "./components/Navbar";
-
 import Home from "./pages/Home";
 import Search from "./pages/Search";
-
 import Navbar from "./components/Navbar";
 import { createBrowserRouter ,Outlet,RouterProvider} from 'react-router-dom';
 import PageNotFound from "./components/PageNotFound";
 import RestaurantMenuShimmer from "./components/RestaurantMenuShimmer";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./pages/Cart";
 /*
 --- App Structure ---
 *Header
@@ -53,6 +54,10 @@ const router=createBrowserRouter([
       {
         path:'/restaurants/:resId',
         element:<Suspense fallback={<RestaurantMenuShimmer/>}><RestaurantMenu/></Suspense>
+      },
+      {
+        path:'/cart',
+        element:<Cart/>
       }
     ]
   }
@@ -64,8 +69,9 @@ const router=createBrowserRouter([
 const App = () => {
   return (
     <div>
-     
+     <Provider store={appStore}>
       <RouterProvider router={router}/>
+     </Provider>
     </div>
   );
 };

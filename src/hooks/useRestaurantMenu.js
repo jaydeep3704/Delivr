@@ -7,8 +7,8 @@ export const useRestaurantMenu = (resId) => {
     const [restaurantInfo,setRestaurantInfo]=useState([])
     const [accordionInfo,setAccordionInfo]=useState([])
     const fetchRestaurantInfo = async () => {
-        const lat = 18.516726;
-        const long = 73.856255;
+        const lat = 19.076090
+        const long = 72.877426
         
         try {
             const response = await fetch(RESTAURANT_MENU(lat, long, resId));

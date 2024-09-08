@@ -6,35 +6,89 @@ import { CLOUDINARY_RESTAURANT_FOOD_URL } from "../constants.js";
 import nonveg from "../assets/nonveg.png";
 import veg from "../assets/veg.png";
 import NestedAccordion from './NestedAccordion.jsx'
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice.js";
+import { useSelector } from "react-redux";
+import { selectRestaurant } from "../utils/cartSlice.js";
 
-const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
+const FoodItemAccordion = ({ menuCategoryTitle, menuData ,resId}) => {
   const [isActive, setIsActive] = useState(false);
 
   const [itemCards, setItemCards] = useState(
     menuData?.itemCards || []
   );
   const[categories,setCategories]=useState(menuData?.categories)
-  
  
+
+
+
+  const dispatch=useDispatch()
+  const lastItem=useSelector((store)=>store.cart.items[store.cart.items.length-1]) 
+
+  const handleAddToCart=(item)=>{
+   
+    const {name,defaultPrice,price,itemAttribute,totalPrice,id}=item
+    
+
+    if(!lastItem)
+    {
+
+      dispatch(addItem({
+        name:name,
+        price:defaultPrice/100 || price/100 || totalPrice/100,
+        vegClassifier:itemAttribute.vegClassifier,
+        resId:resId,
+        itemCount:1,
+        id:id
+        }))
+      dispatch(selectRestaurant(resId))
+    }
+
+    else{
+    if(lastItem?.resId===resId  )
+    {
+     
+      dispatch(addItem({
+       name:name,
+       price:defaultPrice/100 || price/100 || totalPrice/100,
+       vegClassifier:itemAttribute.vegClassifier,
+       resId:resId,
+       itemCount:1,
+       id:id
+       }))
+       
+    }
+    else{
+      alert("Cannot add Items from different Restaurantss ")
+    }
+  }
+  }
+
+
   
   // Function to toggle the state
   const toggleActive = () => setIsActive((prev) => !prev);
   const itemCardsLength=itemCards.length
   return (
-    <div>
+
+
+    <> 
+   
+
+    <div >
       <div className="flex justify-between py-5 text-xl font-bold cursor-pointer" onClick={toggleActive}>
         {`${menuCategoryTitle}  ${itemCardsLength>0 ? `(${itemCardsLength})`: ''}  `} 
         {isActive ? (
-          <FaChevronDown  />
+          <FaChevronDown  className="mr-3"/>
         ) : (
-          <FaChevronUp  />
+          <FaChevronUp   className="mr-3"/>
         )}
       </div>
 
       { 
        categories ? isActive && 
        categories.map((category,index)=>{
-          return <NestedAccordion nestedCategoryData={category} key={index}/>
+          return <NestedAccordion nestedCategoryData={category} key={index} resId={resId}/>
        })
        
        :<AnimatePresence>
@@ -98,6 +152,8 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
                       className={`font-bold uppercase absolute bottom-[-20px] left-1/2 px-10 py-2
                          text-green-600 bg-white shadow-md outline-none rounded-xl translate-x-[-50%] 
                          ${!imageId && 'bottom-28'}`}
+
+                       onClick={()=>handleAddToCart(menuCardInfo)} 
                     >
                       Add
                     </button>
@@ -110,6 +166,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData }) => {
         )}
       </AnimatePresence>}
     </div>
+    </> 
   );
 };
 

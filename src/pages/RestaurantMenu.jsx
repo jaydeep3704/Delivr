@@ -1,19 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineDeliveryDining, MdStars } from "react-icons/md";
 import FoodItemAccordion from "../components/FoodItemAccordion";
 import { useParams } from "react-router-dom";
 import RestaurantMenuShimmer from "../components/RestaurantMenuShimmer";
 import {useRestaurantMenu} from "../hooks/useRestaurantMenu.js"
+
 const RestaurantMenu = () => {
 
   const {resId}=useParams()
   const {restaurantInfo,accordionInfo}=useRestaurantMenu(resId)
   const {name,totalRatingsString,costForTwoMessage,city,feeDetails,cuisines}=restaurantInfo
- 
-  console.log(restaurantInfo)
-
-  
-
   return restaurantInfo.length===0 ?<RestaurantMenuShimmer/> :(
     <div className="flex justify-center w-full px-3 py-10">
       <div className="w-full lg:w-1/2">
@@ -46,7 +42,7 @@ const RestaurantMenu = () => {
             <div className="pt-3 border-t border-gray-200">
               <span className="flex items-center gap-5 text-gray-600">
                 <MdOutlineDeliveryDining className="text-2xl text-gray-600" />
-                {feeDetails?.message}
+                {feeDetails?.message || "Order above 149 for discounted delivery fee"}
               </span>
             </div>
           </div>
@@ -59,7 +55,7 @@ const RestaurantMenu = () => {
                  return menuInfo.title  && 
                  <div className="w-full" key={index}>
                   <div className="w-full h-4 bg-gray-200"></div>
-                  <FoodItemAccordion menuCategoryTitle={menuInfo?.title || ""} menuData={menuInfo } />
+                  <FoodItemAccordion menuCategoryTitle={menuInfo?.title || ""} menuData={menuInfo } resId={resId}/>
                  </div>
                  
               })

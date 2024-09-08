@@ -32,7 +32,7 @@ const TopRestaurantChains = ({ restaurantData = [], title }) => {
           return (
             <div className="flex-shrink-0">
               <div
-                className="  w-[250px] h-[250px]      md:w-[325px] md:h-[325px] rounded-3xl p-3 hover:shadow-md cursor-pointer  "
+                className="  w-[250px] h-[250px]      md:w-[325px] md:h-[325px] rounded-3xl p-3 hover:scale-95 transition duration-300 cursor-pointer  "
                 onClick={() => navigate(`/restaurants/${id}`)}
               >
                 <div className="w-full md:h-[200px] h-[150px] mb-2 relative overflow-hidden">

@@ -11,8 +11,9 @@ const RestaurantContainer = () => {
 
   const [selectedOption, setSelectedOption] = useState('');
   const [showSortBy, setShowSortBy] = useState(false);
-  const {listofRestaurants,defaultList,heading,restaurantChainTitle}=useRestaurantData()
+  const {listofRestaurants,defaultList,heading,restaurantChainTitle,setListOfRestaurants}=useRestaurantData()
 
+  
 const onlineStatus=useOnlineStatus()
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -76,7 +77,7 @@ const onlineStatus=useOnlineStatus()
     setListOfRestaurants(filteredRestaurants);
   };
 
-  console.log(listofRestaurants)
+
 
 
   if(!onlineStatus){
@@ -191,7 +192,7 @@ const onlineStatus=useOnlineStatus()
       </div>
 
       {/* Restaurant card container */}
-      <div className={`flex flex-wrap  flex-row  mt-5 justify-between `}>
+      <div className={`w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8`}>
         {listofRestaurants.map((restaurant) => {
           const restInfo = restaurant.info;
           const{id,name,cloudinaryImageId,cuisines,sla,costForTwo,areaName,aggregatedDiscountInfoV3,avgRating}=restInfo
