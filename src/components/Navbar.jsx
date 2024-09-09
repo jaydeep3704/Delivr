@@ -20,7 +20,8 @@ const Navbar = () => {
   const listClass = "flex gap-3 items-center cursor-pointer";
   const cartItems = useSelector((store) => store.cart.items);
    const dispatch=useDispatch()
-
+   const location=useSelector((store)=>store.location.currentLocation)
+   
   return (
     <>
        <LocationSearch/>
@@ -32,7 +33,7 @@ const Navbar = () => {
           className="md:h-[40px] h-[30px]"
           onClick={() => navigate("/")}
         />
-        <div className="flex items-center gap-3 text-lg text-white" onClick={()=>dispatch(setLocationSearchVisible(true))}>Mumbai, Maharashtra , India  <FaChevronDown/></div>
+        <div className="flex items-center gap-3 text-lg text-white" onClick={()=>dispatch(setLocationSearchVisible(true))}>{location.area}, {location.district} , {location.state}  <FaChevronDown/></div>
         </div>
        
         <ul className="hidden gap-10 text-sm text-white md:items-center md:flex md:text-lg ">

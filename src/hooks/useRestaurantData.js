@@ -33,7 +33,7 @@ export const useRestaurantData= (lat,lng)=>{
 
     useEffect(() => {
         fetchData();
-      }, []);
+      }, [lat,lng]);
 
     
 

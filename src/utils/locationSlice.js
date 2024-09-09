@@ -24,7 +24,12 @@ const locationSlice = createSlice({
   reducers: {
     addLocation: (state, action) => {
       // Add new location to the list of selected locations
-      state.selectedLocations.push(action.payload);
+      if( !state.selectedLocations.find((location)=>location.lat==action.payload.lat))
+      {
+        state.selectedLocations.push(action.payload);
+      }
+     
+    
     },
     setCurrentLocation: (state, action) => {
       // Set the current location
