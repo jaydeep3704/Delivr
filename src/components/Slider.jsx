@@ -15,7 +15,7 @@ const Slider=(props)=>{
   
   useEffect(()=>{
     scrollItemRef.current=document.querySelector(`.${props.className}`)
-    console.log(scrollItemRef.current)
+    
   },[props.className])
 
   

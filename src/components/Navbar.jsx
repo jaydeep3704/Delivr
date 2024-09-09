@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../assets/Delivr.png";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaChevronDown, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoHelpOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LocationSearch from "./LocationSearch";
+import { setLocationSearchVisible } from "../utils/locationSlice.js";
+
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -15,20 +18,23 @@ const Navbar = () => {
     setIsMenuActive((prev) => !prev);
   };
   const listClass = "flex gap-3 items-center cursor-pointer";
+  const cartItems = useSelector((store) => store.cart.items);
+   const dispatch=useDispatch()
 
-  const cartItems=useSelector((store)=>store.cart.items)
-  
-  console.log(cartItems)
   return (
     <>
-      {" "}
+       <LocationSearch/>
       <div className="box-border sticky top-0 left-0 right-0 z-30 flex items-center justify-between px-10 py-5 shadow-md md:flex-row bg-slate-900 lg:px-40 h-[80px]">
+        <div className="flex items-center gap-10">
         <img
           src={Logo}
           alt=""
           className="md:h-[40px] h-[30px]"
           onClick={() => navigate("/")}
         />
+        <div className="flex items-center gap-3 text-lg text-white" onClick={()=>dispatch(setLocationSearchVisible(true))}>Mumbai, Maharashtra , India  <FaChevronDown/></div>
+        </div>
+       
         <ul className="hidden gap-10 text-sm text-white md:items-center md:flex md:text-lg ">
           <Link to={"/search"} className={listClass}>
             <FaSearch className="text-md" />
@@ -43,20 +49,19 @@ const Navbar = () => {
             Sign In
           </Link>
           <Link to={"/cart"} className={listClass}>
-          <span className="relative top-1/2">
-                        <svg
-                          className="overflow-hidden stroke-current stroke-2 fill-white"
-                          viewBox="-1 0 37 32"
-                          height="20"
-                          width="20"
-                          
-                        >
-                          <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
-                        </svg>
-                        <span className="text-slate-800    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[16px] font-extrabold font-poppins">
-                          {cartItems.length}
-                        </span>
-                      </span>
+            <span className="relative top-1/2">
+              <svg
+                className="overflow-hidden stroke-current stroke-2 fill-white"
+                viewBox="-1 0 37 32"
+                height="20"
+                width="20"
+              >
+                <path d="M4.438 0l-2.598 5.11-1.84 26.124h34.909l-1.906-26.124-2.597-5.11z"></path>
+              </svg>
+              <span className="text-slate-800    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-[16px] font-extrabold font-poppins">
+                {cartItems.length}
+              </span>
+            </span>
             Cart
           </Link>
         </ul>

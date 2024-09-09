@@ -8,7 +8,8 @@ import veg from "../assets/veg.png";
 import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice.js";
 import { useSelector } from "react-redux";
-import { selectRestaurant } from "../utils/cartSlice.js";
+import { selectRestaurant ,showAlert } from "../utils/cartSlice.js";
+
 
 const NestedAccordion = ({ nestedCategoryData ,resId}) => {
   
@@ -52,8 +53,8 @@ const NestedAccordion = ({ nestedCategoryData ,resId}) => {
        
     }
     else{
-      alert("Cannot add Items from different Restaurantss ")
-    }
+      dispatch(showAlert(true))
+  }
   }
   }
 

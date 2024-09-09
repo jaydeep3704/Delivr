@@ -4,13 +4,19 @@ import FoodItemAccordion from "../components/FoodItemAccordion";
 import { useParams } from "react-router-dom";
 import RestaurantMenuShimmer from "../components/RestaurantMenuShimmer";
 import {useRestaurantMenu} from "../hooks/useRestaurantMenu.js"
-
+import { useDispatch, useSelector } from "react-redux";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
+import { showAlert,clearCart } from "../utils/cartSlice.js";
 const RestaurantMenu = () => {
 
   const {resId}=useParams()
   const {restaurantInfo,accordionInfo}=useRestaurantMenu(resId)
   const {name,totalRatingsString,costForTwoMessage,city,feeDetails,cuisines}=restaurantInfo
+  const alert=useSelector((store)=>store.cart.alert)
+  const dispatch=useDispatch()
   return restaurantInfo.length===0 ?<RestaurantMenuShimmer/> :(
+   <> 
     <div className="flex justify-center w-full px-3 py-10">
       <div className="w-full lg:w-1/2">
         <div className="p-5 rounded-3xl bg-gradient-to-b from-white to-gray-200">
@@ -63,6 +69,22 @@ const RestaurantMenu = () => {
         </div>
       </div>
     </div>
+    
+    <AnimatePresence>
+       {alert && <motion.div className="w-[500px] shadow-xl bg-white   fixed bottom-10 left-1/2 translate-x-[-50%] p-10" initial={{left:-500}} animate={{left:"50%"}} exit={{left:-500}}>
+          <div className="text-lg font-semibold">Items Already In Cart</div>
+          <div className="text-sm text-gray-600">Your cart contains items from other restaurant. Would you like to reset your cart for adding items from this restaurant?</div>
+          <div className="flex gap-3 mt-5">
+            <button className="w-1/2 py-2 text-center text-[#60B246] border-2 border-[#60B246] font-semibold" onClick={()=>dispatch(showAlert(false))}>NO</button>
+            <button className="w-1/2 py-2 text-center text-white  bg-[#60B246] font-semibold" onClick={()=>{
+              dispatch(clearCart())
+              dispatch(showAlert(false))
+            }}>YES , START AFRESH</button>
+          </div>
+    </motion.div>}
+    </AnimatePresence>
+    
+    </>
   );
 };
 

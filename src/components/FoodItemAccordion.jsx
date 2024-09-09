@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../utils/cartSlice.js";
 import { useSelector } from "react-redux";
 import { selectRestaurant } from "../utils/cartSlice.js";
-
+import { showAlert } from "../utils/cartSlice.js";
 const FoodItemAccordion = ({ menuCategoryTitle, menuData ,resId}) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -59,7 +59,7 @@ const FoodItemAccordion = ({ menuCategoryTitle, menuData ,resId}) => {
        
     }
     else{
-      alert("Cannot add Items from different Restaurantss ")
+        dispatch(showAlert(true))
     }
   }
   }

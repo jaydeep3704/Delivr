@@ -23,7 +23,7 @@ const Cart = () => {
   const deliveryFee=restaurantInfo?.feeDetails?.amount/100 || 60
  
   const discount=35
-  
+  console.log(restaurantInfo)
 
   
   return cartItems.length>0 ?   
@@ -89,7 +89,7 @@ const Cart = () => {
                 })
             }
             <div className="flex items-start p-4 mt-5 border border-gray-500 gap-x-4">
-                <input type="checkbox" className="mt-[5px] focus:caret-green-400" checked={isChecked}onChange={(e)=>setIsChecked(e.target.checked)} />
+                <input type="checkbox" className="mt-[5px] " checked={isChecked}onChange={(e)=>setIsChecked(e.target.checked)} />
                 <div className="">
                     <div className="font-semibold text-[16px]">Opt In for No Contact Delivery</div>
 

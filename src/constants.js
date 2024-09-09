@@ -8,8 +8,9 @@ export const SWIGGY_API= (lat,lon)=>{
 export const CLOUDINARY_WOYM_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360"
 export const CLOUDINARY_RESTAURANT_FOOD_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit"
 export const RESTAURANT_MENU=(lat,lon,resId)=>{return `https://www.swiggy.com/mapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.7357931&lng=73.0946926&restaurantId=${resId}&submitAction=ENTER`}
-
-
+export const LOCATION_API=(query)=>{
+    return `https://api.positionstack.com/v1/forward?access_key=1480fe62d3edb198ad4abaddb19acf25&query=${query}`
+}
 export const whatsonyourmind=[
 {
 "id": "750591",
@@ -372,3 +373,5 @@ export const whatsonyourmind=[
 "description": "Momos"
 }
 ]
+export const GET_LOCATION_API_URL = "https://india-pincode-with-latitude-and-longitude.p.rapidapi.com/api/v1/pincode/";
+export const apiKey = process.env.LOCATION_API_KEY;

@@ -9,6 +9,7 @@ import RestaurantMenuShimmer from "./components/RestaurantMenuShimmer";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Cart from "./pages/Cart";
+
 /*
 --- App Structure ---
 *Header
@@ -29,6 +30,7 @@ const RestaurantMenu=lazy(()=>import("./pages/RestaurantMenu"))
 
 
 const AppLayout=()=>{
+
   return(
     <div>
       <Navbar/>

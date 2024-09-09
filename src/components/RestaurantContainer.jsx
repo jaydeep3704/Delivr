@@ -6,12 +6,16 @@ import ShimmerRestaurantContainer from "./ShimmerRestaurantContainer";
 import TopRestaurantChains from "./TopRestaurantChains";
 import { useRestaurantData } from "../hooks/useRestaurantData.js";
 import { useOnlineStatus } from "../hooks/useOnlineStatus.js";
+import { useSelector } from "react-redux";
 import Offline from "../assets/offline.jpg"
 const RestaurantContainer = () => {
 
   const [selectedOption, setSelectedOption] = useState('');
   const [showSortBy, setShowSortBy] = useState(false);
-  const {listofRestaurants,defaultList,heading,restaurantChainTitle,setListOfRestaurants}=useRestaurantData()
+  const locationInfo=useSelector((store)=>store.location.currentLocation)
+ 
+  const {lat,lng}=locationInfo
+  const {listofRestaurants,defaultList,heading,restaurantChainTitle,setListOfRestaurants}=useRestaurantData(lat,lng)
 
   
 const onlineStatus=useOnlineStatus()

@@ -30,7 +30,7 @@ const TopRestaurantChains = ({ restaurantData = [], title }) => {
           const discountSubHeading = aggregatedDiscountInfoV3?.subHeader || "";
           const text = cuisines.join(",");
           return (
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0" key={id}>
               <div
                 className="  w-[250px] h-[250px]      md:w-[325px] md:h-[325px] rounded-3xl p-3 hover:scale-95 transition duration-300 cursor-pointer  "
                 onClick={() => navigate(`/restaurants/${id}`)}
