@@ -13,20 +13,24 @@ export const useRestaurantData= (lat,lng)=>{
      
   
       
-        const response = await fetch(SWIGGY_API(lat, lng));
+      try {
+          const response = await fetch(SWIGGY_API(lat, lng));
+          
+          const json = await response.json();
+          const card = await json?.data?.cards[1]?.card?.card;
+          const food_delivery_res = await json?.data?.cards[2]?.card?.card?.title;
+          const restaurant_chains = await json?.data?.cards[1]?.card?.card?.header?.title || "Top Restaurant Chains Near You";
+          const restaurants = card?.gridElements?.infoWithStyle?.restaurants || [];
         
-        const json = await response.json();
-        const card = await json?.data?.cards[1]?.card?.card;
-        const food_delivery_res = await json?.data?.cards[2]?.card?.card?.title;
-        const restaurant_chains = await json?.data?.cards[1]?.card?.card?.header?.title || "Top Restaurant Chains Near You";
-        const restaurants = card?.gridElements?.infoWithStyle?.restaurants || [];
-      
-        setBestPlacesToEat(json?.data?.cards[6]?.card?.card?.brands || [])
-        setRestaurantChainTitle(restaurant_chains)
-        setListOfRestaurants(restaurants);
-        setDefaultList(restaurants);
-        setHeading(food_delivery_res);
-        
+          setBestPlacesToEat(json?.data?.cards[6]?.card?.card?.brands || [])
+          setRestaurantChainTitle(restaurant_chains)
+          setListOfRestaurants(restaurants);
+          setDefaultList(restaurants);
+          setHeading(food_delivery_res);
+          
+      } catch (error) {
+        console.log(error)
+      }
       
      
     };

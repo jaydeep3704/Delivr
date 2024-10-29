@@ -102,7 +102,7 @@ const onlineStatus=useOnlineStatus()
   return listofRestaurants.length===0 ? (
     <ShimmerRestaurantContainer />
   ) : (
-    <div className="px-5 mx-auto my-10 sm:px-20 lg:px-48 ">
+    <div className="px-5 mx-auto my-10 sm:px-10 md:px-40 ">
       <TopRestaurantChains restaurantData={defaultList} title={restaurantChainTitle} />
 
 

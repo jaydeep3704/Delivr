@@ -21,7 +21,7 @@ const RestaurantCard = ({
   
   return (
     <div
-      className="w-full  h-[400px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] rounded-3xl p-3 hover:scale-95 duration-200 cursor-pointer "
+      className="w-full  h-[330px] sm:w-[250px] sm:h-[250px] md:w-[350px] md:h-[350px] rounded-3xl p-3 hover:scale-95 duration-200 cursor-pointer "
       onClick={() => {
         navigate(`/restaurants/${id}`)
     }}

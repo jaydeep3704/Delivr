@@ -4,7 +4,7 @@ import { whatsonyourmind } from "../constants";
 import { CLOUDINARY_WOYM_URL } from "../constants";
 const WOYM = () => {
   return (
-    <div className="px-5 mt-10 lg:px-48 sm:px-20">
+    <div className="px-5 mt-10 md:px-40 sm:px-10">
       <div className="flex flex-col justify-between mb-2 md:mb-5 md:flex-row">
         <h2 className="mb-2 text-xl font-semibold capitalize md:text-2xl">
           What's on your mind ?

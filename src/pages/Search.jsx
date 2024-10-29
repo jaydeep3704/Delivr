@@ -12,20 +12,24 @@ const Search = () => {
 
   // Fetch restaurant info
   const fetchResInfo = async () => {
-    const lat = 18.516726;
-    const long = 73.856255;
-    const data = await fetch(SWIGGY_API(lat, long));
-    const json = await data.json();
-    const restaurantInfoList = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-    
-    const selectedProperties = restaurantInfoList.map(res => ({
-      id: res.info.id,
-      name: res.info.name,
-      imageId: res.info.cloudinaryImageId
-    }));
-
-    setResData(selectedProperties);
-    setFilteredData([]);
+    try {
+      const lat = 18.516726;
+      const long = 73.856255;
+      const data = await fetch(SWIGGY_API(lat, long));
+      const json = await data.json();
+      const restaurantInfoList = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+      
+      const selectedProperties = restaurantInfoList.map(res => ({
+        id: res.info.id,
+        name: res.info.name,
+        imageId: res.info.cloudinaryImageId
+      }));
+  
+      setResData(selectedProperties);
+      setFilteredData([]);
+    } catch (error) {
+      console.log("Search Page :",error)
+    }
   };
 
   useEffect(() => {

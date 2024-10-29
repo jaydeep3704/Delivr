@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../assets/Delivr.png";
-import { FaChevronDown, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaChevronDown, FaLocationArrow, FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoHelpOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
@@ -9,7 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LocationSearch from "./LocationSearch";
 import { setLocationSearchVisible } from "../utils/locationSlice.js";
-
+import { IoLocationOutline } from "react-icons/io5";
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuActive, setIsMenuActive] = useState(false);
@@ -33,7 +33,8 @@ const Navbar = () => {
           className="md:h-[40px] h-[30px]"
           onClick={() => navigate("/")}
         />
-        <div className="flex items-center gap-3 text-lg text-white" onClick={()=>dispatch(setLocationSearchVisible(true))}>{location.area}, {location.district} , {location.state}  <FaChevronDown/></div>
+        <div className="items-center hidden gap-3 text-lg text-white md:flex" onClick={()=>dispatch(setLocationSearchVisible(true))}>{location.area}, {location.district} , {location.state}  <FaChevronDown/></div>
+   
         </div>
        
         <ul className="hidden gap-10 text-sm text-white md:items-center md:flex md:text-lg ">
@@ -76,7 +77,7 @@ const Navbar = () => {
       <AnimatePresence>
         {isMenuActive && (
           <motion.div
-            className="sticky z-20 bg-slate-900 top-[80px]  text-white text-md flex flex-col sm:hidden"
+            className="sticky z-20 bg-slate-900 top-[80px]  text-white text-md flex flex-col "
             initial={{ y: -200, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ ease: "easeInOut", duration: 0.2, bounce: 0 }}
@@ -109,6 +110,12 @@ const Navbar = () => {
             >
               <FaShoppingCart className="text-md" />
               Cart
+            </Link>
+            <Link
+              className={`${listClass} w-full py-2 hover:bg-slate-600 px-10 pb-4 `}
+            >
+              <FaLocationArrow className="text-md" />
+              Location 
             </Link>
           </motion.div>
         )}
