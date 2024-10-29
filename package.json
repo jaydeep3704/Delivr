@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.7",
+    "@swc/helpers": "^0.5.13",
     "axios": "^1.7.3",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.3.29",
